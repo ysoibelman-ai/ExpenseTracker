@@ -7,16 +7,46 @@ from expense import *
 from expenses import *
 from expense import *
 from display import *
-
-
+import typer
 
 class Main:
     myexpenses = Expenses()
-    add_expense = questionary.select("do you want to add an expense?",choices= [ "Yes","No"]).ask()
-    while add_expense == "Yes":
+    app = typer.Typer()
 
-        myexpenses.ask_for_expense()
-        Outprints.show_expenses(myexpenses.create_table())
-        add_expense = questionary.select("do you want to add another expense?",choices= [ "Yes","No"]).ask()
+    @staticmethod
+    @app.callback(invoke_without_command=True)
+    def main(ctx: typer.Context):
+        if ctx.invoked_subcommand is None:
+            Main.not_cli()
 
-Main()
+    @staticmethod
+    @app.command()
+    def add(title,amount,category):
+        expenses= Main.myexpenses
+        expenses.add_expense_typer(title,amount,category)
+
+    @staticmethod
+    @app.command()
+    def list(category = None):
+        expenses= Main.myexpenses
+        if not category:
+            Outprints.show_expenses(expenses.create_table())
+        else:
+            Outprints.show_expenses(expenses.create_table(category))
+
+    @staticmethod
+    @app.command()
+    def report():
+       expenses= Main.myexpenses
+       Outprints.generate(expenses.total_per_category())
+       
+    def not_cli():
+        expenses = Main.myexpenses
+        add_expense = questionary.select("do you want to add an expense?",choices= [ "Yes","No"]).ask()
+        while add_expense == "Yes":
+            expenses.ask_for_expense()
+            Outprints.show_expenses(expenses.create_table())
+            add_expense = questionary.select("do you want to add another expense?",choices= [ "Yes","No"]).ask()
+
+if __name__ == "__main__":
+    Main.app()

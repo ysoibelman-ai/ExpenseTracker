@@ -8,10 +8,12 @@ from expenses import *
 from expense import *
 from display import *
 
-
 class Outprints():
     @staticmethod
     def show_expenses (table):
         console = Console()
         console.print(table)
 
+    @staticmethod
+    def generate(total_category_dict):
+        print (total_category_dict)
