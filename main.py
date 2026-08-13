@@ -1,7 +1,6 @@
 from datetime import *
 from rich.console import Console
 from rich.table import Table
-import time
 
 class Expenses:
     def __init__(self):
@@ -56,6 +55,5 @@ class Main:
         myexpenses.ask_for_expense()
         myexpenses.show_expenses()
         add_expense = input("enter 1 to add another expense, to exit enter anything else: ")
-
 
 Main()
