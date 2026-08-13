@@ -1,6 +1,7 @@
 from datetime import *
 from rich.console import Console
 from rich.table import Table
+import questionary
 
 class Expenses:
     def __init__(self):
@@ -12,9 +13,10 @@ class Expenses:
 
     def ask_for_expense(self):
         expense = {}
-        expense["title"] = input("enter title: ")
-        expense["category"] = input("enter category: ")
-        expense["amount"] = input("enter amount: ")
+        expense["title"] = questionary.text("enter title").ask()
+        expense["amount"] = questionary.text("enter amount").ask()
+        expense["category"] = questionary.select("what category is the expense",
+            choices =["Food","Travel","School","Entertainment","other"]).ask()
         self.add_expense(expense)
 
     def show_expenses (self):
@@ -50,10 +52,10 @@ class Expense:
 
 class Main:
     myexpenses = Expenses()
-    add_expense = input("eneter 1 to add express, to exit enter anything else: ")
-    while add_expense == "1":
+    add_expense = questionary.select("do you want to add an expense?",choices= [ "Yes","No"]).ask()
+    while add_expense == "Yes":
         myexpenses.ask_for_expense()
         myexpenses.show_expenses()
-        add_expense = input("enter 1 to add another expense, to exit enter anything else: ")
+        add_expense = questionary.select("do you want to add another expense?",choices= [ "Yes","No"]).ask()
 
 Main()
