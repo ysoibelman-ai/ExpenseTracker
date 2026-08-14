@@ -7,8 +7,10 @@ from expense import *
 from expenses import *
 from expense import *
 from display import *
+import config
 
 class Expenses:
+    console = Console()
     def __init__(self):
         self.expense_list = []
 
@@ -64,12 +66,12 @@ class Expenses:
             table.add_column("Amount",no_wrap=True)
             if not category:
                 for expense in expenses:
-                    table.add_row(today,expense.title,expense.category,expense.amount)
-                table.caption = f"Toal Amount: {self.calc_total()}$"
+                    table.add_row(today,expense.title,expense.category,expense.amount+config.currency)
+                table.caption = f"[bold #CCFF00]Total Amount: {self.calc_total()}{config.currency}[/bold #CCFF00]"
                 return table
             else:
                 for expense in expenses:
                     if expense.category == category:
-                        table.add_row(today,expense.title,expense.category,expense.amount)
-                table.caption = f"Toal Amount: {self.calc_total()}$"
-                return table
+                        table.add_row(today,expense.title,expense.category,expense.amount+config.currency)
+                table.caption = f"[bold #CCFF00]Total Amount: {self.calc_total()}{config.currency}[/bold #CCFF00]"
+                return  table

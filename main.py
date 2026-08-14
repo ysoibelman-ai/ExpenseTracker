@@ -12,6 +12,7 @@ import typer
 class Main:
     myexpenses = Expenses()
     app = typer.Typer()
+    console = Console()
 
     @staticmethod
     @app.callback(invoke_without_command=True)
@@ -38,7 +39,11 @@ class Main:
     @app.command()
     def report():
        expenses= Main.myexpenses
-       Outprints.generate(expenses.total_per_category())
+       report = Outprints.generate(expenses.total_per_category())
+       if type(report) == int and report > config.monthly_budget:
+           Main.console.print("[bold red] WARNING: Your expenses are more than your monthly budget!!![/bold red]")
+
+           pass
        
     def not_cli():
         expenses = Main.myexpenses
