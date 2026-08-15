@@ -25,19 +25,9 @@ The second option is to add an expense or run a few functions directly through t
 Settings:
 This project uses environment variables
 Copy settings template from secrets.env.example to create your on .env file. Make sure to use all the different fields and variables in the example file in your env and set your settings. Note that in the config file there are already set default values for all the fields in the env example file.
-Packages:
-Package Name	Link 	Why used		
-pytest	 https://docs.pytest.org/en/stable/getting-started.html
-	Used to run the tests on the program to make sure everything runs smoothly		
-Python-dotenv	https://pypi.org/project/python-dotenv/
-Used to read secret .env file and implement its content into the other parts of the project		
-typer	 https://typer.tiangolo.com/tutorial/first-steps/
-Used to run the program directly through the CLI terminal		
-questionary	https://questionary.readthedocs.io/
-Used to create interactive input interface  which include selecting different options and fancier print out text 		
-rich	https://rich.readthedocs.io/en/stable/introduction.html Table docs: https://rich.readthedocs.io/en/stable/tables.html
-Used to create the table which the expenses are shown in the terminal		
 
+Packages:
+	
 | Package Name | Link | Why Used |
 | :--- | :--- | :--- |
 | **pytest** | https://docs.pytest.org/en/stable/getting-started.html | Used to run the tests on the program to make sure everything runs smoothly |
