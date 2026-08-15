@@ -7,6 +7,7 @@ from expense import *
 from expenses import *
 from expense import *
 from display import *
+from helpers import *
 
 class Outprints():
     @staticmethod
