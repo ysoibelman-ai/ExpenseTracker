@@ -40,6 +40,7 @@ class Main:
     def report():
        expenses= Main.myexpenses
        report = Outprints.generate(expenses.total_per_category())
+
        if type(report) == int and report > config.monthly_budget:
            Main.console.print("[bold red] WARNING: Your expenses are more than your monthly budget!!![/bold red]")
 
