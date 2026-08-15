@@ -7,6 +7,7 @@ from expense import *
 from expenses import *
 from expense import *
 from display import *
+from helpers import *
 import config
 
 class Expenses:
@@ -29,30 +30,21 @@ class Expenses:
         expense["category"] = questionary.select("what category is the expense",choices =["Food","Travel","School","Entertainment","other"]).ask()
         self.add_expense(expense)
 
-    def calc_total (self, category= None):
-        total_cost = 0
+    def calc_total (self):
         expenses = self.expense_list
-        if len(expenses) == 0:
-            return 0
-        if not category:
-            for i in range (len(expenses)):
-                total_cost += int(expenses[i].amount)
-        else:
-            for i in range (len(expenses)):
-                if expenses[i].category == category:
-                    total_cost += int(expenses[i].amount)
+        total_cost = total (expenses)
         return total_cost
 
-    def total_per_category(self):
-        total = {}
+    def total_of_category(self, category):
         expenses = self.expense_list
-        if len(expenses) > 0:
-            for expense in expenses:
-                if expense.category not in total:
-                    total [expense.category] = expense.amount
-                else:
-                    total[expense.category] += expense.amount
-            return total
+        total = total_category (expenses,category)
+        return total
+
+    def total_per_category(self):
+        expenses = self.expense_list
+        expense_list = total_by_category(expenses)
+        if len (expense_list) > 0:
+            return expense_list
         else:
             return "No items in list" 
 
@@ -64,6 +56,7 @@ class Expenses:
             table.add_column("Title",no_wrap=True)
             table.add_column("Category",no_wrap=True)
             table.add_column("Amount",no_wrap=True)
+
             if not category:
                 for expense in expenses:
                     table.add_row(today,expense.title,expense.category,expense.amount+config.currency)
